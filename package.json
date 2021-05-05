@@ -1,0 +1,30 @@
+{
+  "name": "dice-roller",
+  "version": "1.0.0",
+  "description": "Dice rolling bot",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "dotenv": "^8.2.0",
+    "wokcommands": "^1.3.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "node index.js",
+    "dev:watch": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "discord",
+    "discord-bot",
+    "dice",
+    "rolling",
+    "roll",
+    "d20",
+    "D&D",
+    "dnd",
+    "RPG"
+  ],
+  "author": "Ruciak",
+  "license": "ISC"
+}
