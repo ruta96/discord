@@ -13,7 +13,7 @@ module.exports = {
     testOnly: true,
     description: 'Rzuć kostką! (żeby uzyskać dodatkowe informacje podaj dowolny znak jako drugi argument)',
     minArgs: 1,
-    expectedArgs: '<dices> [repeat] [info]',
+    expectedArgs: '<dices> [repeat]',
     callback: ({ message, args }) => {
         let [dices, repeat] = args
         try {
@@ -30,11 +30,18 @@ module.exports = {
                 }
                 else {
                     const embed = new MessageEmbed().setTitle(`Wynik rzutu - (${dices})`).setDescription(`liczba powtórzeń - ${repeat}`)
+                    let sum = 0
                     for (let i = 0; i < parsedRepeat; i++) {
                         const roll = new rpgDiceRoller.DiceRoll(dices)
-                        embed.addField(`Rzut #${i + 1}`, `🎲 ${roll.rolls}`, true)
-                        embed.addField('Wynik', roll.total, true)
-                        embed.addField('\u200b', '\u200b', true)
+
+                        embed.addField(`Rzut #${i + 1}`, `🎲 ${roll}`)
+                        sum += roll.total
+                    }
+                    embed.addField('Suma', sum)
+
+                    if (message) {
+                        message.delete()
+                        message.reply('', { embed })
                     }
                     return embed
                 }
