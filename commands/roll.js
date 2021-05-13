@@ -13,27 +13,42 @@ module.exports = {
     testOnly: true,
     description: 'Rzuć kostką! (żeby uzyskać dodatkowe informacje podaj dowolny znak jako drugi argument)',
     minArgs: 1,
-    expectedArgs: '<dices> [info]',
+    expectedArgs: '<dices> [repeat] [info]',
     callback: ({ message, args }) => {
-        const [dices, info] = args
+        let [dices, repeat] = args
         try {
+            if (repeat) {
+                const parsedRepeat = parseInt(repeat)
+                if (isNaN(parsedRepeat)) {
+                    throw 'repeat argument must be a number!'
+                }
+                else if (parsedRepeat < 1 || parsedRepeat > 100) {
+                    throw 'repeat argument must be a number between 1 and 100!'
+                }
+                else if (parsedRepeat === 1) {
+                    //pass
+                }
+                else {
+                    const embed = new MessageEmbed().setTitle(`Wynik rzutu - (${dices})`).setDescription(`liczba powtórzeń - ${repeat}`)
+                    for (let i = 0; i < parsedRepeat; i++) {
+                        const roll = new rpgDiceRoller.DiceRoll(dices)
+                        embed.addField(`Rzut #${i + 1}`, `🎲 ${roll.rolls}`, true)
+                        embed.addField('Wynik', roll.total, true)
+                        embed.addField('\u200b', '\u200b', true)
+                    }
+                    return embed
+                }
+            }
             const roll = new rpgDiceRoller.DiceRoll(dices)
             const embed = new MessageEmbed()
             let rolls = `🎲 ${roll.rolls}`
             if (rolls.length > 2048) {
-                rolls = rolls.slice(0, 2044)
-                rolls += '...]'
+                rolls = rolls.slice(0, 2044) + '...]'
             }
             embed
                 .setTitle(`Wynik rzutu - (${roll.notation})`)
                 .setDescription(rolls)
                 .addField('suma', roll.total)
-            if (info) {
-                embed
-                    .addField('Wynik minimalny', `${roll.minTotal}`, true)
-                    .addField('Wynik maksymalny', `${roll.maxTotal}`, true)
-                    .addField('Wynik średni', `${roll.averageTotal}`, true)
-            }
 
             if (message) {
                 message.delete()
