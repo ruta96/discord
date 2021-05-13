@@ -11,7 +11,7 @@ module.exports = {
     category: 'RPG',
     aliases: ['r'],
     testOnly: true,
-    description: 'Rzuć kostką! (żeby uzyskać dodatkowe informacje podaj dowolny znak jako drugi argument)',
+    description: 'Rzuć kostką!',
     minArgs: 1,
     expectedArgs: '<dices> [repeat]',
     callback: ({ message, args }) => {
@@ -34,7 +34,7 @@ module.exports = {
                     for (let i = 0; i < parsedRepeat; i++) {
                         const roll = new rpgDiceRoller.DiceRoll(dices)
 
-                        embed.addField(`Rzut #${i + 1}`, `🎲 ${roll}`)
+                        embed.addField(`Rzut #${i + 1}`, `\`\`\` 🎲 ${roll}\`\`\``)
                         sum += roll.total
                     }
                     embed.addField('Suma', sum)
@@ -48,7 +48,7 @@ module.exports = {
             }
             const roll = new rpgDiceRoller.DiceRoll(dices)
             const embed = new MessageEmbed()
-            let rolls = `🎲 ${roll.rolls}`
+            let rolls = `\`\`\` 🎲 ${roll.rolls}\`\`\``
             if (rolls.length > 2048) {
                 rolls = rolls.slice(0, 2044) + '...]'
             }
