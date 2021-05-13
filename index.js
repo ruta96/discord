@@ -7,7 +7,7 @@ require('dotenv').config()
 const client = new Discord.Client({
     partials: ['MESSAGE', 'REACTION']
 })
-const guildId = '839658055196606525'
+const guildId = '667814568172453919'
 
 
 /*const getApp = (guildId) => {
@@ -24,7 +24,7 @@ client.on('ready', async () => {
 
     new WOKCommands(client, {
         commandsDir: 'commands',
-        testServers: [guildId],
+        testServers: ['667814568172453919'],
     })
         .setDefaultPrefix('/')
 })

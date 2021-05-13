@@ -31,6 +31,9 @@ Poza podstawową wersją dF jest także wersja **Df.1**, daje podobne wyniki, al
             .addField('Wartość minimalna i maksymalna (d20min5, d20max16)',
                 `modyfikator **min** - Po modyfikatorze należy podać liczbę. Podana liczba będzie zastępować wylosowaną wartość, jeżeli ta okaże się niższa.
 modyfikator **max** - Analogicznie do modyfikatora min z tym, że ten zastępuje wartość gdy wylosowana liczba okaże się wyższa.`)
+            .addField('Zachowaj wyższy/niższy rzut (2d20k1, 2d20kl1)',
+                `**kh**, **k** - Po podanym argumencie należy podać liczbę wyników, które chcemy zachować. Zostaje zachowana podana liczba najwyższych wyników.
+**kl** - analogicznie, do powyższej instrukcji, ale zostaje zachowana podana ilość najniższych wyników.`)
         return embed
     },
 }
