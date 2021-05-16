@@ -48,15 +48,19 @@ module.exports = {
             }
             const roll = new rpgDiceRoller.DiceRoll(dices)
             const embed = new MessageEmbed()
-            let rolls = `\`\`\` 🎲 ${roll.rolls}\`\`\``
+            let rolls = `\`\`\` 🎲 ${roll.rolls.join(' ')}\`\`\``
             if (rolls.length > 2048) {
-                rolls = rolls.slice(0, 2044) + '...]'
+                rolls = rolls.slice(0, 2030) + '...]```'
             }
             embed
                 .setTitle(`Wynik rzutu - (${roll.notation})`)
                 .setDescription(rolls)
                 .addField('suma', roll.total)
-
+            console.log(roll.averageTotal)
+            if ((roll.total === roll.maxTotal) && (roll.maxTotal !== roll.minTotal) && roll.averageTotal > 5) {
+                embed.setImage('https://media.giphy.com/media/9y2rmR2dv7rLq/giphy.gif')
+                embed.setColor('#00ff00')
+            }
             if (message) {
                 message.delete()
                 message.reply('', { embed })
