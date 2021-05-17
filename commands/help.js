@@ -39,13 +39,8 @@ modyfikator **max** - Analogicznie do modyfikatora min z tym, że ten zastępuje
                 **d**, **dl** - Odrzuć podaną liczbę najniższych wyników.
                 **dh** - Odrzuć podaną liczbę najwyższych wyników.`)
             .addField('Powtórz rzut (4d6k3 6)',
-                `Powtórzenie rzutu wykonuje się podając drugi argument, musi być to liczba z przedziału od 1 do 100. 
+                `Powtórzenie rzutu wykonuje się podając drugi argument, musi być to liczba z przedziału od 1 do 20. 
 Rzut zostanie powtórzony określoną w tym argumencie ilość razy, a następnie wszystkie wyniki zostaną zsumowane.`)
-            .addField('Przrzuć kostkę (2d6r, 2d6ro)',
-                `Modyfikator **r** - przerzuca kostkę na najniższym wyniku, dopóki nie wypadnie inny wynik.
-Modyfikator **ro** - przerzuca kostkę na najniższym wyniku, ale tylko raz.
-Zmiana działania - Można zmodyfikować liczbę, która ma być przerzucana np. 2d6r=3 będzie przerzucać wynik, gdy ten będzie równy 3.
-2d6r<3 będzie przerzucać wynik mniejszy niż 3. (dozwolone operatory >, <, >=, <=, !=, =)`)
             .addField('Przrzuć kostkę (2d6r, 2d6ro)',
                 `Modyfikator **r** - przerzuca kostkę na najniższym wyniku, dopóki nie wypadnie inny wynik.
 Modyfikator **ro** - przerzuca kostkę na najniższym wyniku, ale tylko raz.
