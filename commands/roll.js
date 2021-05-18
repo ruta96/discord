@@ -10,7 +10,7 @@ module.exports = {
     slash: 'both',
     category: 'RPG',
     aliases: ['r'],
-    testOnly: true,
+    //testOnly: true,
     description: 'Rzuć kostką!',
     minArgs: 1,
     expectedArgs: '<dices> [repeat]',

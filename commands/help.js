@@ -3,7 +3,7 @@ const { MessageEmbed } = require("discord.js")
 module.exports = {
     slash: 'both',
     category: 'RPG',
-    testOnly: true,
+    //testOnly: true,
     description: 'Jak rzucać kostką',
     callback: () => {
         const embed = new MessageEmbed()
