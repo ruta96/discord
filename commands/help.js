@@ -4,7 +4,7 @@ module.exports = {
     slash: 'both',
     category: 'RPG',
     //testOnly: true,
-    description: 'Jak rzucać kostką',
+    description: 'Jak rzucać kostką?',
     callback: () => {
         const embed = new MessageEmbed()
             .setTitle('Pomoc')

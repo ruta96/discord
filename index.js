@@ -17,10 +17,10 @@ const guildId = '667814568172453919'
     }
     return app
 }*/
-
 client.on('ready', async () => {
     //const commands = await getApp().commands.get()
     //console.log(commands)
+    client.user.setActivity('Let\'s /roll', { type: 'PLAYING' })
 
     new WOKCommands(client, {
         commandsDir: 'commands',
