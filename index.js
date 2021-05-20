@@ -7,7 +7,7 @@ require('dotenv').config()
 const client = new Discord.Client({
   partials: ['MESSAGE', 'REACTION']
 })
-const guildId = '667814568172453919'
+// const guildId = '667814568172453919'
 
 /* const getApp = (guildId) => {
     const app = client.api.applications(client.user.id)
