@@ -68,13 +68,16 @@ Więcej informacji w **Sumowanie wybuchąjących kostek**.`)
                         `/r 10d6!! - Taki zapis spowoduje rzucenie podstawowo 10 kostek 6-cio ściennych i jeżeli wypadnie najwyższy wynik zostanie dorzucona dodatkowa kostka.
 Różnica jest taka, że zamiast wykonywać dodatkowego rzutu osobno, wynik jest w miejscu, w którym kostka wybuchła.
 W tym przadku dozwolone są wszystkie operatory do modyfikowania warunku wybuchu kostki.`)
-      .addField('Krytyczny sukces i porażka (d20cs=20cf=1', `
+      .addField('Krytyczny sukces i porażka (d20cs=20cf=1)', `
 /r d20cs=20cf=1 - taki zapis spowoduje, że (cs) krytyczny sukces, będzie oznaczany przy wyniku 20, a (cf) krytyczna porażka przy wyniku 1.
 Do określania krytycznego sukcesu i porażki można używać wszystkich operatorów.
     `)
-      .addField('Sortowanie rzutów (10d6s)', `
-modyfikator **s**, **sa** - taki zapis dodany na końcu, posortuje rzuty od najniższego do najwyższego.
+      .addField('Sortowanie rzutów (10d6s)',
+                        `modyfikator **s**, **sa** - taki zapis dodany na końcu, posortuje rzuty od najniższego do najwyższego.
 modyfikator **sd** = przy tym zapisie rzuty są sortowane od najwyższego do najniższego. `)
+      .addField('Zmiana prefixu',
+                        `Domyślny prefix to "/", można go zmienić przy użyciu komendy /prefix <nowy prefix>.
+Po zmianie prefixu wszystkie komendy tego bota będą wywoływane za pomocą nowego prefixu.`)
     return embed
   }
 }

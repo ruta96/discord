@@ -39,6 +39,7 @@ module.exports = {
   category: 'RPG',
   aliases: ['r'],
   // testOnly: true,
+  cooldown: '5s',
   description: 'Rzuć kostką!',
   minArgs: 1,
   expectedArgs: '<dices> [repeat-or-name] [name]',
