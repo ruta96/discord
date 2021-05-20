@@ -1,5 +1,6 @@
 const rpgDiceRoller = require('rpg-dice-roller')
 const { MessageEmbed } = require('discord.js')
+const moment = require('moment')
 
 const engines = rpgDiceRoller.NumberGenerator.engines
 const generator = rpgDiceRoller.NumberGenerator.generator
@@ -41,7 +42,7 @@ module.exports = {
   description: 'Rzuć kostką!',
   minArgs: 1,
   expectedArgs: '<dices> [repeat-or-name] [name]',
-  callback: ({ message, args }) => {
+  callback: ({ message, args, interaction }) => {
     const [dices, repeat, name] = args
     try {
       if (repeat && !isNaN(parseInt(repeat))) {
@@ -80,15 +81,18 @@ module.exports = {
           }
 
           embed.addField('Wynik', sum)
-            .setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString())
 
           if (embed.length > 6000) {
             throw new Error('roll result is too long for discord message standards.')
           }
 
           if (message) {
+            embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY LTS'))
             message.delete()
             message.reply('', { embed })
+          }
+          if (interaction) {
+            embed.setFooter(interaction.member.user.username + ' | ' + moment(Date.now()).format('DD/MM/YYYY LTS'))
           }
           return embed
         }
@@ -105,21 +109,26 @@ module.exports = {
 
         const embed = standardRoll(dices, rollName)
 
-        embed.setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString())
         if (message) {
+          embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY LTS'))
           message.delete()
           message.reply('', { embed })
         }
 
+        if (interaction) {
+          embed.setFooter(interaction.member.user.username + ' | ' + moment(Date.now()).format('DD/MM/YYYY LTS'))
+        }
         return embed
       }
       const embed = standardRoll(dices)
 
-      embed.setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString())
-
       if (message) {
+        embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY LTS'))
         message.delete()
         message.reply('', { embed })
+      }
+      if (interaction) {
+        embed.setFooter(interaction.member.user.username + ' | ' + moment(Date.now()).format('DD/MM/YYYY LTS'))
       }
 
       return embed
@@ -128,11 +137,15 @@ module.exports = {
         .setTitle('Wynik rzutu - Błąd')
         .setColor('#ffff00')
         .setDescription(e)
-        .setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString())
 
       if (message) {
+        embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY LTS'))
         message.delete()
         message.reply('', { embed })
+      }
+
+      if (interaction) {
+        embed.setFooter(interaction.member.user.username + ' | ' + moment(Date.now()).format('DD/MM/YYYY LTS'))
       }
       return embed
     }
