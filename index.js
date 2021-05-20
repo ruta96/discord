@@ -23,7 +23,7 @@ client.on('ready', async () => {
 
   new WOKCommands(client, {
     commandsDir: 'commands',
-    testServers: ['667814568172453919']
+    testServers: ['844942046108188682']
   })
     .setDefaultPrefix('/')
 })

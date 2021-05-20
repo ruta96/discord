@@ -46,6 +46,7 @@ module.exports = {
     try {
       if (repeat && !isNaN(parseInt(repeat))) {
         const parsedRepeat = parseInt(repeat)
+
         if (parsedRepeat < 1 || parsedRepeat > 20) {
           throw new Error('repeat argument must be a number between 1 and 20!')
         } else if (parsedRepeat === 1) {
@@ -53,25 +54,33 @@ module.exports = {
         } else {
           const embed = new MessageEmbed().setDescription(`liczba powtórzeń - ${repeat}`)
           embed.title = `Wynik rzutu - (${dices})`
+
           if (name) {
             let rollName = ''
+
             for (let i = 2; i < args.length; i++) {
               rollName += args[i] + ' '
             }
+
             embed.title = `${rollName}\nWynik rzutu - (${dices})`
           }
+
           let sum = 0
+
           for (let i = 0; i < parsedRepeat; i++) {
             const roll = new rpgDiceRoller.DiceRoll(dices)
             const rollResult = `\`\`\` 🎲 ${roll}\`\`\``
+
             if (rollResult.length > 1000) {
               throw new Error('roll result is too long for discord message standards.')
             }
+
             embed.addField(`Rzut #${i + 1}`, rollResult)
             sum += roll.total
           }
 
           embed.addField('Wynik', sum)
+            .setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString())
 
           if (embed.length > 6000) {
             throw new Error('roll result is too long for discord message standards.')
@@ -85,14 +94,18 @@ module.exports = {
         }
       } else {
         let rollName = ''
+
         for (let i = 1; i < args.length; i++) {
           rollName += args[i] + ' '
         }
+
         if (rollName.length > 64) {
           throw new Error('Roll name can\'t be longer than 64 characters.')
         }
+
         const embed = standardRoll(dices, rollName)
 
+        embed.setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString())
         if (message) {
           message.delete()
           message.reply('', { embed })
@@ -101,6 +114,9 @@ module.exports = {
         return embed
       }
       const embed = standardRoll(dices)
+
+      embed.setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString())
+
       if (message) {
         message.delete()
         message.reply('', { embed })
@@ -112,6 +128,7 @@ module.exports = {
         .setTitle('Wynik rzutu - Błąd')
         .setColor('#ffff00')
         .setDescription(e)
+        .setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString())
 
       if (message) {
         message.delete()
