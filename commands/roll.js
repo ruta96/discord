@@ -1,13 +1,14 @@
 const rpgDiceRoller = require('rpg-dice-roller')
 const { MessageEmbed } = require('discord.js')
 const moment = require('moment')
+const RollModel = require('../db/model.js')
 
 const engines = rpgDiceRoller.NumberGenerator.engines
 const generator = rpgDiceRoller.NumberGenerator.generator
 
 generator.engine = engines.MersenneTwister19937.autoSeed()
 
-function standardRoll (dices, name) {
+function standardRoll(dices, name) {
   const roll = new rpgDiceRoller.DiceRoll(dices)
   const embed = new MessageEmbed()
   let rolls = `\`\`\` 🎲 ${roll.rolls.join(' ')}\`\`\``
@@ -35,17 +36,22 @@ function standardRoll (dices, name) {
 }
 
 module.exports = {
-  slash: 'both',
-  category: 'RPG',
   aliases: ['r'],
-  // testOnly: true,
-  cooldown: '5s',
+  cooldown: '10s',
   description: 'Rzuć kostką!',
   minArgs: 1,
   expectedArgs: '<dices> [repeat-or-name] [name]',
-  callback: ({ message, args, interaction }) => {
-    const [dices, repeat, name] = args
+  callback: async ({ message, args }) => {
     try {
+      if (args[0].charAt(0) === '#') {
+        args[0] = args[0].substring(1)
+        const guildRoll = await RollModel.findOne({ guildId: message.guild.id, name: args[0] })
+        if (guildRoll) {
+          args = guildRoll.notation.split(' ')
+          args.pop()
+        }
+      }
+      const [dices, repeat, name] = args
       if (repeat && !isNaN(parseInt(repeat))) {
         const parsedRepeat = parseInt(repeat)
 
@@ -65,6 +71,9 @@ module.exports = {
             }
 
             embed.title = `${rollName}\nWynik rzutu - (${dices})`
+            if (rollName.length > 64) {
+              throw new Error('Roll name can\'t be longer than 64 characters.')
+            }
           }
 
           let sum = 0
@@ -87,15 +96,11 @@ module.exports = {
             throw new Error('roll result is too long for discord message standards.')
           }
 
-          if (message) {
-            embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY LTS'))
-            message.delete()
-            message.reply('', { embed })
-          }
-          if (interaction) {
-            embed.setFooter(interaction.member.user.username + ' | ' + moment(Date.now()).format('DD/MM/YYYY LTS'))
-          }
-          return embed
+          embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY HH:mm:ss'))
+          message.delete()
+          message.reply('', { embed })
+
+          return 0
         }
       } else {
         let rollName = ''
@@ -110,45 +115,30 @@ module.exports = {
 
         const embed = standardRoll(dices, rollName)
 
-        if (message) {
-          embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY LTS'))
-          message.delete()
-          message.reply('', { embed })
-        }
+        embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY HH:mm:ss'))
+        message.delete()
+        message.reply('', { embed })
 
-        if (interaction) {
-          embed.setFooter(interaction.member.user.username + ' | ' + moment(Date.now()).format('DD/MM/YYYY LTS'))
-        }
-        return embed
+        return 0
       }
       const embed = standardRoll(dices)
 
-      if (message) {
-        embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY LTS'))
-        message.delete()
-        message.reply('', { embed })
-      }
-      if (interaction) {
-        embed.setFooter(interaction.member.user.username + ' | ' + moment(Date.now()).format('DD/MM/YYYY LTS'))
-      }
+      embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY HH:mm:ss'))
+      message.delete()
+      message.reply('', { embed })
 
-      return embed
+      return 0
     } catch (e) {
       const embed = new MessageEmbed()
         .setTitle('Wynik rzutu - Błąd')
         .setColor('#ffff00')
         .setDescription(e)
 
-      if (message) {
-        embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY LTS'))
-        message.delete()
-        message.reply('', { embed })
-      }
+      embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY HH:mm:ss'))
+      message.delete()
+      message.reply('', { embed })
 
-      if (interaction) {
-        embed.setFooter(interaction.member.user.username + ' | ' + moment(Date.now()).format('DD/MM/YYYY LTS'))
-      }
-      return embed
+      return 0
     }
   }
 }
