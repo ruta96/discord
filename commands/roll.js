@@ -8,7 +8,7 @@ const generator = rpgDiceRoller.NumberGenerator.generator
 
 generator.engine = engines.MersenneTwister19937.autoSeed()
 
-function standardRoll(dices, name) {
+function standardRoll (dices, name) {
   const roll = new rpgDiceRoller.DiceRoll(dices)
   const embed = new MessageEmbed()
   let rolls = `\`\`\` 🎲 ${roll.rolls.join(' ')}\`\`\``
@@ -43,7 +43,7 @@ module.exports = {
   expectedArgs: '<dices> [repeat-or-name] [name]',
   callback: async ({ message, args }) => {
     try {
-      if (args[0].charAt(0) === '#') {
+      if (args[0].charAt(0) === '&') {
         args[0] = args[0].substring(1)
         const guildRoll = await RollModel.findOne({ guildId: message.guild.id, name: args[0] })
         if (guildRoll) {
