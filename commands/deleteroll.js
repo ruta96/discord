@@ -1,6 +1,5 @@
 const RollModel = require('../db/model.js')
 const { MessageEmbed } = require('discord.js')
-const moment = require('moment')
 
 module.exports = {
   description: 'Usuń rzut predefiniowany.',
@@ -19,7 +18,7 @@ module.exports = {
     } catch (e) {
       embed.setDescription(`Usuwanie rzutu niepowiodło się!\n ${e}`).setColor('#ff0000')
     }
-    embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY HH:mm:ss'))
+    embed.setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString('PL'))
     message.reply('', { embed })
     message.delete()
   }
