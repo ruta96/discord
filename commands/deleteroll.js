@@ -19,7 +19,7 @@ module.exports = {
     } catch (e) {
       embed.setDescription(`Usuwanie rzutu niepowiodło się!\n ${e}`).setColor('#ff0000')
     }
-    embed.setFooter(message.author.username + ' | ' + formatDate())
+    embed.setFooter(message.author.username + ' | ' + formatDate(message.createdAt))
     message.reply('', { embed })
     message.delete()
   }

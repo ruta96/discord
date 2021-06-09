@@ -38,7 +38,7 @@ module.exports = {
       embed.setDescription(e).setColor('#ff0000')
       embed.title += ' - błąd'
     }
-    embed.setFooter(message.author.username + ' | ' + formatDate())
+    embed.setFooter(message.author.username + ' | ' + formatDate(message.createdAt))
     message.reply('', { embed })
     message.delete()
   }

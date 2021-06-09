@@ -94,7 +94,7 @@ modyfikator **sd** = przy tym zapisie rzuty są sortowane od najwyższego do naj
         .addField('Dodatkowe komendy',
           'Informacje o dodatkowych komendach uzyskasz wywołując komendę "/help +"')
     }
-    embed.setFooter(message.author.username + ' | ' + formatDate())
+    embed.setFooter(message.author.username + ' | ' + formatDate(message.createdAt))
     message.reply('', { embed })
     message.delete()
   }

@@ -14,7 +14,7 @@ module.exports = {
     } else {
       guildRolls.forEach(roll => embed.addField(`nazwa rzutu: ${roll.name}`, `notacja rzutu: ${roll.notation}`))
     }
-    embed.setFooter(message.author.username + ' | ' + formatDate())
+    embed.setFooter(message.author.username + ' | ' + formatDate(message.createdAt))
     message.reply('', { embed })
     message.delete()
   }

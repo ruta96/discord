@@ -1,5 +1,5 @@
-const formatDate = () => {
-  const d = new Date()
+const formatDate = (date) => {
+  const d = new Date(date)
   let hours = ''
   let minutes = ''
   let seconds = ''
