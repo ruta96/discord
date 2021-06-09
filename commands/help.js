@@ -1,4 +1,5 @@
 const { MessageEmbed } = require('discord.js')
+const formatDate = require('../functions/formatDate.js')
 
 module.exports = {
   description: 'Jak rzucać kostką?',
@@ -93,6 +94,8 @@ modyfikator **sd** = przy tym zapisie rzuty są sortowane od najwyższego do naj
         .addField('Dodatkowe komendy',
           'Informacje o dodatkowych komendach uzyskasz wywołując komendę "/help +"')
     }
+    embed.setFooter(message.author.username + ' | ' + formatDate())
     message.reply('', { embed })
+    message.delete()
   }
 }

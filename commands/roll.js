@@ -1,6 +1,7 @@
 const rpgDiceRoller = require('rpg-dice-roller')
 const { MessageEmbed } = require('discord.js')
 const RollModel = require('../db/model.js')
+const formatDate = require('../functions/formatDate.js')
 
 const engines = rpgDiceRoller.NumberGenerator.engines
 const generator = rpgDiceRoller.NumberGenerator.generator
@@ -41,6 +42,7 @@ module.exports = {
   minArgs: 1,
   expectedArgs: '<dices> [repeat-or-name] [name]',
   callback: async ({ message, args }) => {
+    const dformat = formatDate()
     try {
       if (args[0].charAt(0) === '&') {
         args[0] = args[0].substring(1)
@@ -95,7 +97,7 @@ module.exports = {
             throw new Error('roll result is too long for discord message standards.')
           }
 
-          embed.setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString('PL'))
+          embed.setFooter(message.author.username + ' | ' + dformat)
           message.delete()
           message.reply('', { embed })
 
@@ -114,7 +116,7 @@ module.exports = {
 
         const embed = standardRoll(dices, rollName)
 
-        embed.setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString('PL'))
+        embed.setFooter(message.author.username + ' | ' + dformat)
         message.delete()
         message.reply('', { embed })
 
@@ -122,7 +124,7 @@ module.exports = {
       }
       const embed = standardRoll(dices)
 
-      embed.setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString('PL'))
+      embed.setFooter(message.author.username + ' | ' + dformat)
       message.delete()
       message.reply('', { embed })
 
@@ -133,7 +135,7 @@ module.exports = {
         .setColor('#ffff00')
         .setDescription(e)
 
-      embed.setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString('PL'))
+      embed.setFooter(message.author.username + ' | ' + dformat)
       message.delete()
       message.reply('', { embed })
 

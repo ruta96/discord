@@ -1,5 +1,6 @@
 const RollModel = require('../db/model.js')
 const { MessageEmbed } = require('discord.js')
+const formatDate = require('../functions/formatDate.js')
 
 module.exports = {
   aliases: ['lr'],
@@ -13,7 +14,7 @@ module.exports = {
     } else {
       guildRolls.forEach(roll => embed.addField(`nazwa rzutu: ${roll.name}`, `notacja rzutu: ${roll.notation}`))
     }
-    embed.setFooter(message.author.username + ' | ' + message.createdAt.toLocaleString('PL'))
+    embed.setFooter(message.author.username + ' | ' + formatDate())
     message.reply('', { embed })
     message.delete()
   }

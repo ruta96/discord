@@ -1,6 +1,6 @@
 const RollModel = require('../db/model.js')
 const { MessageEmbed } = require('discord.js')
-const moment = require('moment')
+const formatDate = require('../functions/formatDate.js')
 
 module.exports = {
   aliases: ['nr'],
@@ -38,7 +38,7 @@ module.exports = {
       embed.setDescription(e).setColor('#ff0000')
       embed.title += ' - błąd'
     }
-    embed.setFooter(message.author.username + ' | ' + moment(message.createdAt).format('DD/MM/YYYY HH:mm:ss'))
+    embed.setFooter(message.author.username + ' | ' + formatDate())
     message.reply('', { embed })
     message.delete()
   }
