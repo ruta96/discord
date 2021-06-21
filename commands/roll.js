@@ -8,7 +8,7 @@ const generator = rpgDiceRoller.NumberGenerator.generator
 
 generator.engine = engines.MersenneTwister19937.autoSeed()
 
-function standardRoll(dices, name) {
+function standardRoll (dices, name) {
   const roll = new rpgDiceRoller.DiceRoll(dices)
   const embed = new MessageEmbed()
   let rolls = `\`\`\` 🎲 ${roll.rolls.join(' ')}\`\`\``
@@ -25,10 +25,10 @@ function standardRoll(dices, name) {
     .setDescription(rolls)
     .addField('Wynik', roll.total)
 
-  if ((roll.total === roll.maxTotal) && (roll.maxTotal !== roll.minTotal) && roll.averageTotal > 5) {
+  if ((roll.total === roll.maxTotal) && (roll.maxTotal !== roll.minTotal) && roll.averageTotal > 5 && (Math.abs(roll.maxTotal - roll.minTotal) >= 10)) {
     embed.setImage('https://media.giphy.com/media/9y2rmR2dv7rLq/giphy.gif')
     embed.setColor('#00ff00')
-  } else if ((roll.total === roll.minTotal) && (roll.maxTotal !== roll.minTotal) && roll.averageTotal > 5) {
+  } else if ((roll.total === roll.minTotal) && (roll.maxTotal !== roll.minTotal) && roll.averageTotal > 5 && (Math.abs(roll.maxTotal - roll.minTotal) >= 10)) {
     embed.setImage('https://media1.tenor.com/images/8474b0f567704b752354d6e5a589784b/tenor.gif?itemid=6118887')
     embed.setColor('#ff0000')
   }
