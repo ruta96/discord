@@ -8,7 +8,7 @@ const generator = rpgDiceRoller.NumberGenerator.generator
 
 generator.engine = engines.MersenneTwister19937.autoSeed()
 
-function standardRoll (dices, name) {
+function standardRoll(dices, name) {
   const roll = new rpgDiceRoller.DiceRoll(dices)
   const embed = new MessageEmbed()
   let rolls = `\`\`\` 🎲 ${roll.rolls.join(' ')}\`\`\``
@@ -37,7 +37,6 @@ function standardRoll (dices, name) {
 
 module.exports = {
   aliases: ['r'],
-  cooldown: '10s',
   description: 'Rzuć kostką!',
   minArgs: 1,
   expectedArgs: '<dices> [repeat-or-name] [name]',
